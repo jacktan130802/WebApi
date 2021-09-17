@@ -11,8 +11,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-namespace WebApplication1
+using Microsoft.EntityFrameworkCore;
+using TodoApi.Models;
+namespace Dump //.NetCore is a web framework for mobile backend by microsft so all these template is from.netcore
 {
     public class Startup
     {
@@ -28,10 +29,12 @@ namespace WebApplication1
         {
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApplication1", Version = "v1" });
-            });
+            services.AddDbContext<TodoContext>(opt =>
+                                                opt.UseInMemoryDatabase("TodoList"));
+            /*            services.AddSwaggerGen(c =>
+                        {
+                            c.SwaggerDoc("v1", new OpenApiInfo { Title = "Dump", Version = "v1" });
+                        });*/
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,8 +43,8 @@ namespace WebApplication1
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApplication1 v1"));
+/*                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Dump v1"));*/
             }
 
             app.UseHttpsRedirection();
